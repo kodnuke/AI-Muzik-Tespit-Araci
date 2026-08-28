@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploads (runtime)
+uploads/
+
+# PyInstaller
+*.spec
+
+# Test files
+test_audio.wav
+test_audio_analiz.json
+
+# Misc
+*.log
+.env
+*.tmp
+*.zip
+*.rar
+
+# Freebuff internal
+.freebuff/
+
+# Empty / temp files
+Yeni Metin Belgesi.txt

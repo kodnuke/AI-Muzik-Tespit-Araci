@@ -1,0 +1,115 @@
+============================================================
+  AI MUZIK TESPIT ARACI - WEB KURULUM TALIMATLARI
+============================================================
+
+PROJE KLASOR YAPISI:
+====================
+
+  public_html/              <-- PHP SUNUCUN (sitenin public_html'ine yukle)
+  ├── index.php             <-- Ana sayfa
+  ├── css/
+  │   └── style.css         <-- Still dosyasi
+  └── js/
+      └── app.js            <-- JavaScript (API URL burada)
+
+  pythonanywhere/           <-- PYTHONANYWHERE (Flask API)
+  └── app.py                <-- API sunucusu
+
+
+1. PYTHONANYWHERE KURULUMU
+==========================
+
+  a) https://www.pythonanywhere.com/ sitesine girin
+     (Ucretsiz hesap acin, yeterli)
+
+  b) "Web" sekmesine tiklayin -> "Add a new web app"
+     Secenekler:
+       - Framework: Flask
+       - Python version: 3.10 veya 3.11
+       - Flask version: mevcut olan
+
+  c) "Files" sekmesine gidin, su dosyayi yukleyin:
+     /home/KULLANICI_ADINIZ/mysite/flask_app.py
+     (Icerigi: pythonanywhere/app.py dosyasinin icerigi)
+
+  d) "Consoles" sekmesine gidin, bir Bash konsolu acin
+     ve su komutlari calistirin:
+
+     pip3 install --user flask flask-cors librosa numpy soundfile numba
+
+  e) "Web" sekmesine donun, "WSGI configuration file" linkine tiklayin
+     Dosyayi soyle duzenleyin:
+
+     ----- BURAYI DEGISIN -----
+     project_home = '/home/KULLANICI_ADINIZ/mysite'
+     if project_home not in sys.path:
+         sys.path.insert(0, project_home)
+
+     from flask_app import app as application
+     ----- BITTI -----
+
+     Kaydedin.
+
+  f) "Web" sekmesinde "Reload" butonuna basin
+
+  g) Web app'iniz artik su adreste calisiyor:
+     https://KULLANICI_ADINIZ.pythonanywhere.com/
+
+     API'nin calistigini test edin:
+     https://KULLANICI_ADINIZ.pythonanywhere.com/api/analyze
+
+
+2. PHP SUNUCU KURULUMU (public_html)
+=====================================
+
+  a) public_html/ klasorundeki TUM dosyalari
+     kendi web sunucunuzun public_html/ klasorune yukleyin:
+
+     public_html/
+     ├── index.php
+     ├── css/style.css
+     └── js/app.js
+
+  b) js/app.js dosyasindaki API_URL'i degistirin:
+     Satir 8'de:
+
+     const API_URL = 'https://KULLANICI_ADINIZ.pythonanywhere.com/api/analyze';
+
+     (KULLANICI_ADINIZ yerine PythonAnywhere kullanici adinizi yazin)
+
+  c) index.php dosyasini da sunucunuzun public_html'ine yukleyin
+
+  d) Tarayicida sitenizi acin:
+     https://SITENIZ.COM/ veya https://SITENIZ.COM/index.php
+
+
+3. HIZLI KONTROL LISTESI
+========================
+
+  [x] PythonAnywhere'da flask_app.py yuklendi mi?
+  [x] pip install komutlari calistirildi mi?
+  [x] WSGI dosyasi duzenlendi mi?
+  [x] Web app "Reload" edildi mi?
+  [x] api/analyze calisiyor mu? (tarayicida test edin)
+  [x] js/app.js'de API_URL guncellendi mi?
+  [x] public_html dosyalari yuklendi mi?
+
+
+4. SIK SORULAN SORULAR
+=======================
+
+  S: PythonAnywhere ucretsiz mi?
+  C: Evet, Basic plan ucretsiz. Yavas calisir ama calisir.
+
+  S: Analiz neden yavas?
+  C: Ucretsiz planda CPU limitli. 5-10 saniye surebilir.
+
+  S: Dosya boyutu siniri?
+  C: PythonAnywhere ucretsiz planda 100MB HTTP request limiti var.
+     Biz 16MB siniri koyduk, sorun olmaz.
+
+  S: Hata aliyorum?
+  C: PythonAnywhere "Web" sekmesinden hata loglarini kontrol edin.
+
+  S: COKLU dosya analizi?
+  C: Su an tek dosya destekliyor. Gelistirme yapilabilir.
